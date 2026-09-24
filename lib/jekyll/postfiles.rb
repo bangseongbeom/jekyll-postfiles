@@ -99,7 +99,7 @@ module Jekyll
 
                 assetdir_abs = site_srcroot + srcroot_to_assetdir
                 postdir_to_assetdir = assetdir_abs.relative_path_from(postdir)
-                PostFile.new(site, site_srcroot, srcroot_to_assetdir.to_path, asset_basename, (dest_dir + postdir_to_assetdir).to_path)
+                PostFile.new(site, site_srcroot.to_path, srcroot_to_assetdir.to_path, asset_basename.to_path, (dest_dir + postdir_to_assetdir).to_path)
               end
           end
         end.flatten
