@@ -51,6 +51,21 @@ module Jekyll
       def destination(_dest)
         File.join(@dest, @name)
       end
+
+      # Obtain the URL of the file, relative to the site root.
+      #
+      # StaticFile#url uses the source path of the file. For a post file,
+      # this path is under _posts/, and Jekyll never writes files there.
+      # So we build the URL from the destination path instead. This way,
+      # plugins (jekyll-relative-links, ...) work correctly with `file.url`.
+      #
+      # Returns the URL of the file.
+      def url
+        @url ||= begin
+          dest_dir = Pathname.new(@dest).relative_path_from(Pathname.new(@site.dest))
+          File.join("/", dest_dir.to_path, @name)
+        end
+      end
     end
 
     class PostFileGenerator < Generator
