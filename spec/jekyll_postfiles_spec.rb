@@ -28,4 +28,9 @@ describe Jekyll::PostFiles do
     expect(site.static_files[1].cleaned_relative_path.class).to eq site.static_files[0].cleaned_relative_path.class
     expect(site.static_files[1].to_liquid.class).to eq site.static_files[0].to_liquid.class
   end
+
+  it "exposes the URL the post file is written to, not its source path" do
+    post_file = site.static_files.find { |file| file.name.to_s == "cloudflare.png" }
+    expect(post_file.url).to eq("/2016/06/09/cloudflare.png")
+  end
 end
